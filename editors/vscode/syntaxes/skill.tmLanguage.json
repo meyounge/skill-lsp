@@ -1,0 +1,21 @@
+{
+  "name": "SKILL",
+  "scopeName": "source.skill",
+  "patterns": [
+    { "name": "comment.line.semicolon.skill", "match": ";.*$" },
+    { "name": "comment.block.skill", "begin": "/\\*", "end": "\\*/" },
+    { "name": "string.quoted.double.skill", "begin": "\"", "end": "\"", "patterns": [
+      { "name": "constant.character.escape.skill", "match": "\\\\." }
+    ] },
+    { "name": "support.function.keyword7.skill", "match": "@[A-Za-z_][A-Za-z0-9_]*" },
+    { "name": "variable.parameter.keyword.skill", "match": "\\?[A-Za-z_][A-Za-z0-9_]*" },
+    { "name": "support.function.keyword2.skill", "match": "(?<![A-Za-z0-9_?!*])c[ad]+r(?![A-Za-z0-9_?!*])" },
+    { "match": "\\b(procedure|defun|defmacro|defmethod|defgeneric)\\s*\\(\\s*([A-Za-z_][A-Za-z0-9_?!*]*)", "captures": {
+      "1": { "name": "keyword.control.skill" }, "2": { "name": "entity.name.function.skill" }
+    } },
+    { "name": "constant.language.skill", "match": "(?<![A-Za-z0-9_?!*])(?:t|nil)(?![A-Za-z0-9_?!*])" },
+    { "name": "keyword.control.skill", "match": "(?<![A-Za-z0-9_?!*])(?:if|when|unless|else|then|cond|case|caseq|foreach|for|while|loop|defun|procedure|lambda|nlambda|mprocedure|nprocedure|defmacro|defmethod|defgeneric|defclass|defstruct|defvar|let\\*|let|letseq|letrec|prog|prog1|prog2|progn|setq|set!|set|define|return|go|break|continue|and|or|not|quote|quasiquote|begin)(?![A-Za-z0-9_?!*])" },
+    { "name": "constant.numeric.skill", "match": "(?<![A-Za-z0-9_])-?(?:0x[0-9a-fA-F]+|[0-9]+\\.?[0-9]*(?:[eE][+-]?[0-9]+)?)" },
+    { "name": "keyword.operator.skill", "match": "[=~<>!&|:+*/-]+" }
+  ]
+}

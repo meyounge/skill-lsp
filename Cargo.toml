@@ -1,0 +1,30 @@
+[package]
+name = "skill-lsp"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.82"
+description = "SKILL language server with local Cadence API Finder indexing"
+license = "MIT"
+build = "build.rs"
+
+[dependencies]
+tower-lsp = "0.20.0"
+tower = { version = "0.4", default-features = false }
+tokio = { version = "1", features = ["io-std", "io-util", "macros", "rt-multi-thread", "net", "sync"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+walkdir = "2"
+
+[build-dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+walkdir = "2"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = true
+
+[[bin]]
+name = "skill-lsp"
+path = "src/main.rs"

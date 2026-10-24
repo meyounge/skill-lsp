@@ -1,0 +1,12 @@
+# Keep VSIX packaging narrow. Dependencies are packaged by vsce separately.
+**/*
+!package.json
+!extension.cjs
+!server-options.cjs
+!language-configuration.json
+!syntaxes/
+!syntaxes/skill.tmLanguage.json
+!README.md
+!LICENSE
+!CHANGELOG.md
+!node_modules/**

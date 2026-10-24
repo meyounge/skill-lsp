@@ -1,0 +1,122 @@
+[
+  {
+    "name": "dbSynthetic",
+    "signature_raw": "dbSynthetic(\n d_cell\n t_name\n [ ?width x_width ]\n [\n ?purpose\n t_purpose\n ]\n )\n => d_shape / nil",
+    "description": "Invented database helper; no Cadence API documentation is included.",
+    "params": [
+      {
+        "raw": "d_cell",
+        "name": "cell",
+        "type_str": "db object",
+        "optional": false
+      },
+      {
+        "raw": "t_name",
+        "name": "name",
+        "type_str": "string",
+        "optional": false
+      },
+      {
+        "raw": "?width",
+        "name": "?width",
+        "type_str": "integer",
+        "optional": true
+      },
+      {
+        "raw": "?purpose",
+        "name": "?purpose",
+        "type_str": "string",
+        "optional": true
+      }
+    ],
+    "return_type": "db object (shape)",
+    "source_file": "Custom_Layout/sklayoutref.fnd",
+    "keyword_category": 3
+  },
+  {
+    "name": "layoutSynthetic",
+    "signature_raw": "layoutSynthetic(\n l_points\n )\n => l_result",
+    "description": "Synthetic layout helper.",
+    "params": [
+      {
+        "raw": "l_points",
+        "name": "points",
+        "type_str": "list",
+        "optional": false
+      }
+    ],
+    "return_type": "list (result)",
+    "source_file": "Custom_Layout/sklayoutref.fnd",
+    "keyword_category": 4
+  },
+  {
+    "name": "sampleHead",
+    "signature_raw": "sampleHead(\n l_items\n [ x_offset {0..10} ]\n )\n => g_item / nil",
+    "description": "Synthetic list helper. Parentheses (like these) are description text.",
+    "params": [
+      {
+        "raw": "l_items",
+        "name": "items",
+        "type_str": "list",
+        "optional": false
+      },
+      {
+        "raw": "x_offset",
+        "name": "offset",
+        "type_str": "integer",
+        "optional": true
+      }
+    ],
+    "return_type": "any (item)",
+    "source_file": "Core_SKILL/synthetic.fnd",
+    "keyword_category": 2
+  },
+  {
+    "name": "strExternal",
+    "signature_raw": "strExternal(\n t_text\n )\n => t_result",
+    "description": "Uses the core-discovered str prefix, so category 2 wins category 4.",
+    "params": [
+      {
+        "raw": "t_text",
+        "name": "text",
+        "type_str": "string",
+        "optional": false
+      }
+    ],
+    "return_type": "string (result)",
+    "source_file": "Custom_Layout/sklayoutref.fnd",
+    "keyword_category": 2
+  },
+  {
+    "name": "strSynthetic",
+    "signature_raw": "strSynthetic(\n t_text\n )\n => t_result",
+    "description": "Synthetic string helper with an escaped \"quotation\".",
+    "params": [
+      {
+        "raw": "t_text",
+        "name": "text",
+        "type_str": "string",
+        "optional": false
+      }
+    ],
+    "return_type": "string (result)",
+    "source_file": "Core_SKILL/synthetic.fnd",
+    "keyword_category": 2
+  },
+  {
+    "name": "synthetic",
+    "signature_raw": "synthetic(\n g_value\n )\n => t / nil",
+    "description": "Unprefixed synthetic core entry.",
+    "params": [
+      {
+        "raw": "g_value",
+        "name": "value",
+        "type_str": "any",
+        "optional": false
+      }
+    ],
+    "return_type": null,
+    "source_file": "Core_SKILL/synthetic.fnd",
+    "keyword_category": 1
+  }
+]

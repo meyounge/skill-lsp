@@ -1,0 +1,13 @@
+/target/
+/SKILL/
+*.api.json
+**/node_modules/
+**/__pycache__/
+*.pyc
+*.vsix
+*.fnd
+!examples/SKILL/Core_SKILL/synthetic.fnd
+!examples/SKILL/Custom_Layout/sklayoutref.fnd
+.env
+.env.*
+!*.example

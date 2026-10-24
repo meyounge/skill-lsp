@@ -1,0 +1,117 @@
+{
+  "name": "skill-lsp",
+  "displayName": "SKILL Language Server",
+  "description": "Fast local SKILL language support using the Rust SKILL LSP.",
+  "version": "0.1.1",
+  "publisher": "skill-lsp-community",
+  "license": "MIT",
+  "private": true,
+  "engines": { "vscode": "^1.82.0" },
+  "categories": ["Programming Languages"],
+  "keywords": ["skill", "lsp", "cadence", "virtuoso"],
+  "main": "./extension.cjs",
+  "activationEvents": ["onLanguage:skill"],
+  "capabilities": {
+    "untrustedWorkspaces": { "supported": false },
+    "virtualWorkspaces": { "supported": false }
+  },
+  "extensionKind": ["workspace"],
+  "scripts": {
+    "check": "node --check extension.cjs && node --check server-options.cjs && node test/client.test.cjs",
+    "test": "npm run check",
+    "package": "vsce package --allow-missing-repository"
+  },
+  "dependencies": { "vscode-languageclient": "^9.0.1" },
+  "devDependencies": { "@vscode/vsce": "^3.6.0" },
+  "overrides": { "@azure/msal-node": "^7.1.0" },
+  "contributes": {
+    "languages": [{
+      "id": "skill",
+      "aliases": ["SKILL", "skill"],
+      "extensions": [".il", ".ils", ".skill"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{ "language": "skill", "scopeName": "source.skill", "path": "./syntaxes/skill.tmLanguage.json" }],
+    "commands": [
+      { "command": "skillLsp.restart", "title": "SKILL: Restart Language Server" },
+      { "command": "skillLsp.showOutput", "title": "SKILL: Show Language Server Output" }
+    ],
+    "configuration": {
+      "title": "SKILL Language Server",
+      "properties": {
+        "skillLsp.serverPath": {
+          "type": "string", "default": "skill-lsp", "scope": "machine-overridable", "restricted": true,
+          "description": "Path to the Rust server executable, or its command on PATH. Supports ${workspaceFolder}."
+        },
+        "skillLsp.fndDir": {
+          "type": "string", "default": "", "scope": "machine-overridable", "restricted": true,
+          "description": "Optional local Finder directory. Leave empty for normal server discovery. Never bundled or uploaded."
+        },
+        "skillLsp.database": {
+          "type": "string", "default": "", "scope": "machine-overridable", "restricted": true,
+          "description": "Optional local compiled API JSON database. Takes precedence over fndDir."
+        },
+        "skillLsp.maxCompletions": {
+          "type": "integer", "minimum": 0, "default": 0,
+          "description": "Maximum completion items; zero keeps the server's unlimited default."
+        }
+      }
+    },
+    "semanticTokenTypes": [
+      { "id": "keyword1", "superType": "function", "description": "Core SKILL builtins." },
+      { "id": "keyword2", "superType": "function", "description": "Core prefixes and computed car/cdr selectors." },
+      { "id": "keyword3", "superType": "function", "description": "Database APIs." },
+      { "id": "keyword4", "superType": "function", "description": "Layout APIs." },
+      { "id": "keyword5", "superType": "function", "description": "PCell APIs." },
+      { "id": "keyword6", "superType": "function", "description": "ADE APIs." },
+      { "id": "keyword7", "superType": "keyword", "description": "ROD APIs and @lambda-list markers." },
+      { "id": "keyword8", "superType": "function", "description": "OCEAN APIs." },
+      { "id": "keyword9", "superType": "function", "description": "Simulation APIs." },
+      { "id": "keyword10", "superType": "function", "description": "Other indexed APIs." },
+      { "id": "kwarg", "superType": "parameter", "description": "SKILL ?keyword arguments." },
+      { "id": "literal", "superType": "keyword", "description": "SKILL literal values." }
+    ],
+    "semanticTokenScopes": [{ "language": "skill", "scopes": {
+      "keyword1": ["support.function.keyword1.skill"],
+      "keyword2": ["support.function.keyword2.skill"],
+      "keyword3": ["support.function.keyword3.skill"],
+      "keyword4": ["support.function.keyword4.skill"],
+      "keyword5": ["support.function.keyword5.skill"],
+      "keyword6": ["support.function.keyword6.skill"],
+      "keyword7": ["support.function.keyword7.skill"],
+      "keyword8": ["support.function.keyword8.skill"],
+      "keyword9": ["support.function.keyword9.skill"],
+      "keyword10": ["support.function.keyword10.skill"],
+      "kwarg": ["variable.parameter.keyword.skill"],
+      "literal": ["constant.language.skill"]
+    } }],
+    "configurationDefaults": {
+      "[skill]": { "editor.semanticHighlighting.enabled": true },
+      "editor.semanticTokenColorCustomizations": { "rules": {
+        "keyword1:skill": "#4FC8C0", "keyword2:skill": "#7AB8F0",
+        "keyword3:skill": "#D4A060", "keyword4:skill": "#9B7FE8",
+        "keyword5:skill": "#C87FD0", "keyword6:skill": "#E26F8F",
+        "keyword7:skill": "#E06060", "keyword8:skill": "#60B8D0",
+        "keyword9:skill": "#A0C040", "keyword10:skill": "#6080A8",
+        "keyword:skill": "#4FC8C0", "kwarg:skill": "#A8D8FF",
+        "function:skill": "#60D0E8", "variable:skill": "#A0C8A0",
+        "string:skill": "#78C878", "number:skill": "#F1EE8E",
+        "comment:skill": "#4A5568", "operator:skill": "#C8E050",
+        "literal:skill": "#4FC8C0"
+      } },
+      "editor.tokenColorCustomizations": { "textMateRules": [
+        { "scope": "keyword.control.skill", "settings": { "foreground": "#4FC8C0" } },
+        { "scope": "support.function.keyword2.skill", "settings": { "foreground": "#7AB8F0" } },
+        { "scope": "support.function.keyword7.skill", "settings": { "foreground": "#E06060" } },
+        { "scope": "variable.parameter.keyword.skill", "settings": { "foreground": "#A8D8FF" } },
+        { "scope": "entity.name.function.skill", "settings": { "foreground": "#60D0E8" } },
+        { "scope": "string.quoted.double.skill", "settings": { "foreground": "#78C878" } },
+        { "scope": "constant.numeric.skill", "settings": { "foreground": "#F1EE8E" } },
+        { "scope": "comment.line.semicolon.skill", "settings": { "foreground": "#4A5568" } },
+        { "scope": "comment.block.skill", "settings": { "foreground": "#4A5568" } },
+        { "scope": "keyword.operator.skill", "settings": { "foreground": "#C8E050" } },
+        { "scope": "constant.language.skill", "settings": { "foreground": "#4FC8C0" } }
+      ] }
+    }
+  }
+}

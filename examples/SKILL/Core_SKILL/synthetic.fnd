@@ -1,0 +1,20 @@
+; Entirely invented functions and documentation for parser testing.
+("sampleHead"
+ "sampleHead(
+ l_items
+ [ x_offset {0..10} ]
+ )
+ => g_item / nil"
+ "Synthetic list helper. Parentheses (like these) are description text.")
+("strSynthetic"
+ "strSynthetic(
+ t_text
+ )
+ => t_result"
+ "Synthetic string helper with an escaped \"quotation\".")
+("synthetic"
+ "synthetic(
+ g_value
+ )
+ => t / nil"
+ "Unprefixed synthetic core entry.")

@@ -1,0 +1,30 @@
+("dbSynthetic"
+ "dbSynthetic(
+ d_cell
+ t_name
+ [ ?width x_width ]
+ [
+ ?purpose
+ t_purpose
+ ]
+ )
+ => d_shape / nil"
+ "Invented database helper; no Cadence API documentation is included.")
+("layoutSynthetic"
+ "layoutSynthetic(
+ l_points
+ )
+ => l_result"
+ "Synthetic layout helper.")
+("strExternal"
+ "strExternal(
+ t_text
+ )
+ => t_result"
+ "Uses the core-discovered str prefix, so category 2 wins category 4.")
+("synthetic"
+ "synthetic(
+ t_duplicate
+ )
+ => t_result"
+ "Duplicate that must lose to the core entry.")

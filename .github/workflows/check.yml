@@ -1,0 +1,60 @@
+name: Rust and LSP checks
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+env:
+  SKILL_EMBED_FND_DIR: ""
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: cargo test --all-targets
+      - run: cargo fmt --all -- --check
+      - run: cargo clippy --all-targets -- -D warnings
+      - run: cargo build --release
+      - run: python scripts/smoke.py
+      - run: python scripts/car_cdr_smoke.py
+      - run: python scripts/encoding_smoke.py
+      - run: python scripts/package_source.py --check
+      - run: cargo run --release --example perf
+      - uses: actions/upload-artifact@v4
+        with:
+          name: skill-lsp-${{ matrix.os }}
+          path: |
+            target/release/skill-lsp
+            target/release/skill-lsp.exe
+          if-no-files-found: error
+      - if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y lua5.4
+          lua scripts/lua_color_smoke.lua success editors/skill_colors.lua editors/skill_lsp_config.lua
+  vscode:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: editors/vscode
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: editors/vscode/package-lock.json
+      - run: npm ci --ignore-scripts
+      - run: npm test
+      - run: npm audit --omit=dev
+      - run: npm run package
+      - uses: actions/upload-artifact@v4
+        with:
+          name: skill-lsp-vscode
+          path: editors/vscode/*.vsix
+          if-no-files-found: error
