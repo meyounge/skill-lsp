@@ -5,6 +5,8 @@
   "Cargo.lock",
   "LICENSE",
   "README.md",
+  "docs/images/lite-xl.png",
+  "docs/images/VSCode.png",
   "PUBLISHING.md",
   "VALIDATION.md",
   "PUBLIC_FILES.json",
